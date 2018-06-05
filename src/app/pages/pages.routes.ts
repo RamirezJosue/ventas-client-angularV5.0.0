@@ -14,6 +14,7 @@ import { ArticuloComponent } from './articulos/articulo.component';
 import { CategoriaComponent } from './categorias/categoria.component';
 
 import { LoginGuardGuard } from '../services/service.index';
+import { ProfileComponent } from './profile/profile.component';
 
 
 
@@ -26,6 +27,7 @@ const pagesRoutes: Routes = [
           { path: 'dashboard', component: DashboardComponent, data: {titulo: 'Dashboard'} },
           { path: 'progress', component: ProgressComponent, data: {titulo: 'Progress'} },
           { path: 'graficas1', component: Graficas1Component, data: {titulo: 'Grafica'} },
+          { path: 'perfil', component: ProfileComponent, data: {titulo: 'Perfil de Usuario'} },
 
         //   Matenimiento
           { path: 'usuarios', component: UsuariosComponent, data: {titulo: 'Mantemiento de Usuarios'} },
