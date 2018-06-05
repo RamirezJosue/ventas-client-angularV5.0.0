@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Usuario } from '../../models/usuario.model';
+import { UsuarioService } from '../../services/service.index';
 
 @Component({
   selector: 'app-profile',
@@ -7,9 +9,26 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProfileComponent implements OnInit {
 
-  constructor() { }
+  usuario: Usuario;
+
+  constructor(
+    public _usuarioService: UsuarioService
+  ) {
+    this.usuario = this._usuarioService.usuario;
+  }
 
   ngOnInit() {
+  }
+
+  guardar( usuario: Usuario ) {
+
+    this.usuario.nombre = this.usuario.nombre;
+    this.usuario.email = this.usuario.email;
+
+    this._usuarioService.actualizarUsuario( this.usuario )
+                 .subscribe( resp => {
+                    console.log(resp);
+                 });
   }
 
 }

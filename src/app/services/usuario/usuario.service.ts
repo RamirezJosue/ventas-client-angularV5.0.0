@@ -17,7 +17,7 @@ export class UsuarioService {
   constructor(
     public http: HttpClient,
     public router: Router
-  ) { 
+  ) {
     this.cargarStorage();
   }
 
@@ -84,7 +84,7 @@ export class UsuarioService {
             });
 
   }
- 
+
   buscarUsuarios( termino: string ){
     let url = URL_SERVICIOS + '/busqueda/coleccion/usuarios/' + termino;
     return this.http.get(url)
@@ -94,6 +94,16 @@ export class UsuarioService {
   crearUsuario( usuario: Usuario){
     let url = URL_SERVICIOS + '/usuario';
     return this.http.post(url, usuario);
+  }
+
+  actualizarUsuario( usuario: Usuario ) {
+
+    let url = URL_SERVICIOS + '/usuario/' + usuario._id;
+    url += '?token=' + this.token;
+    console.log( url );
+
+    return this.http.put( url, usuario );
+
   }
 
 borrarUsuario( id: string ){
