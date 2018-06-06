@@ -1,8 +1,9 @@
 export { LoginGuardGuard } from './guards/login-guard.guard';
-export { UsuarioService } from './usuario/usuario.service';
 export { ArticuloService } from './articulo/articulo.service';
 export { CategoriaService } from './categoria/categoria.service';
 
+export { SubirArchivoService } from './subir-archivo/subir-archivo.service';
+export { UsuarioService } from './usuario/usuario.service';
 export { SidebarService } from './shared/sidebar.service';
 export { SharedService } from './shared/shared.service';
 

@@ -9,7 +9,8 @@ import {
   UsuarioService,
   ArticuloService,
   CategoriaService,
-  LoginGuardGuard
+  LoginGuardGuard,
+  SubirArchivoService
  } from './service.index';
 
 
@@ -24,7 +25,8 @@ import {
     UsuarioService,
     ArticuloService,
     CategoriaService,
-    LoginGuardGuard
+    LoginGuardGuard,
+    SubirArchivoService
   ],
   declarations: []
 })

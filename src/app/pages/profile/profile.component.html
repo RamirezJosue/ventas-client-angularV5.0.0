@@ -5,22 +5,23 @@
             <div class="card-body">
                 <h4 class="card-title">Perfil de Usuario</h4>
                 <h6 class="card-subtitle">Nombre de Usuario</h6>
+
                 <form ngNativeValidate #f="ngForm" (ngSubmit)="guardar( f.value )" class="form p-t-20">
                     <div class="form-group">
                         <label for="exampleInputuname">Nombre de usuario</label>
                         <div class="input-group">
                             <div class="input-group-addon"><i class="ti-user"></i></div>
-                            <input [ngModel]="usuario.nombre" type="text" class="form-control" name="nombre" placeholder="Nombre de usuario" required>
+                            <input [ngModel]="usuario.nombre" name="nombre" type="text" class="form-control" placeholder="Nombre de usuario" required>
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="exampleInputEmail1">Dirección de correo electrónico</label>
                         <div class="input-group">
                             <div class="input-group-addon"><i class="ti-email"></i></div>
-                            <input [ngModel]="usuario.email" type="email" class="form-control" name="email" placeholder="Ingrese correo electrónico" required>
+                            <input [ngModel]="usuario.email" name="email" type="email" class="form-control" placeholder="Ingrese correo electrónico" required>
                         </div>
                     </div>
-                    <button type="submit" class="btn btn-block btn-success waves-effect waves-light m-r-10">Guardar <i class="fa fa-save"></i></button>
+                    <button type="submit" class="btn btn-success waves-effect waves-light m-r-10">Guardar <i class="fa fa-save"></i></button>
                     <!-- <button type="submit" class="btn btn-inverse waves-effect waves-light">Cancel</button> -->
                 </form>
             </div>
@@ -35,15 +36,13 @@
 
                 <img src="" alt="">
 
-                <input type="file">
+                <input (change)="seleccionImagen( $event.target.files[0] )" type="file">
 
                 <br><br>
 
-                <button type="button" class="btn btn-block btn-success waves-effect waves-light m-r-10">Actualizar <i class="fa fa-save"></i></button>
+                <button (click)="cambiarImagen()" [disabled]="!imagenSubir" type="button" class="btn btn-block btn-success waves-effect waves-light m-r-10">Actualizar <i class="fa fa-save"></i></button>
 
             </div>
         </div>
     </div>
-
-
 </div>

@@ -4,6 +4,7 @@ import { URL_SERVICIOS } from '../../config/config';
 import { Usuario } from '../../models/usuario.model';
 import { map } from 'rxjs/operators';
 import { Router } from '@angular/router';
+import { SubirArchivoService } from '../subir-archivo/subir-archivo.service';
 
 
 
@@ -16,7 +17,8 @@ export class UsuarioService {
 
   constructor(
     public http: HttpClient,
-    public router: Router
+    public router: Router,
+    public _subirArchivoService: SubirArchivoService
   ) {
     this.cargarStorage();
   }
@@ -57,10 +59,10 @@ export class UsuarioService {
     this.router.navigate(['/login']);
   }
 
-  login( usuario: Usuario, recordar: boolean = false ){
-    if(recordar){
+  login( usuario: Usuario, recordar: boolean = false ) {
+    if (recordar) {
       localStorage.setItem('login', usuario.login );
-    } else{
+    } else {
       localStorage.removeItem('login');
     }
 
@@ -74,24 +76,24 @@ export class UsuarioService {
                 });
   }
 
-  cargarUsuarios(){
+  cargarUsuarios() {
     let url = URL_SERVICIOS + '/usuario';
 
     return this.http.get( url )
-            .map((resp:any) => {
+            .map((resp: any) => {
               this.totalUsuarios = resp.total;
               return resp.usuarios;
             });
 
   }
 
-  buscarUsuarios( termino: string ){
+  buscarUsuarios( termino: string ) {
     let url = URL_SERVICIOS + '/busqueda/coleccion/usuarios/' + termino;
     return this.http.get(url)
                 .map((resp: any) => resp.usuarios);
   }
 
-  crearUsuario( usuario: Usuario){
+  crearUsuario( usuario: Usuario) {
     let url = URL_SERVICIOS + '/usuario';
     return this.http.post(url, usuario);
   }
@@ -100,14 +102,39 @@ export class UsuarioService {
 
     let url = URL_SERVICIOS + '/usuario/' + usuario._id;
     url += '?token=' + this.token;
-    console.log( url );
 
-    return this.http.put( url, usuario );
+    return this.http.put( url, usuario )
+                .map( (resp: any) => {
+
+                  // this.usuario = resp.usuario;
+                  let usuarioDB: Usuario = resp.usuario;
+                  this.guardarStorage( usuarioDB._id, this.token, usuarioDB );
+                  swal('Usuario Actualizado', usuario.nombre, 'exito' );
+
+                  return true;
+                });
 
   }
 
-borrarUsuario( id: string ){
-  let url = URL_SERVICIOS + '/usuario' + id;
-}
+  cambiarImagen( archivo: File, id: string ) {
+
+    this._subirArchivoService.subirArchivo( archivo, 'usuarios', id )
+          .then( ( resp: any ) => {
+
+            this.usuario.img = resp.usuario.img;
+            swal( 'Imagen Actualizada', this.usuario.nombre, 'success' );
+            this.guardarStorage( id, this.token, this.usuario );
+
+          })
+          .catch( resp => {
+            console.log( resp );
+
+          });
+
+  }
+
+  borrarUsuario( id: string ) {
+    let url = URL_SERVICIOS + '/usuario' + id;
+  }
 
 }
