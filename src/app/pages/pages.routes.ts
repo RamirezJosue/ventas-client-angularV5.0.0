@@ -8,10 +8,12 @@ import { ProgressComponent } from './progress/progress.component';
 import { UsuariosComponent } from './usuarios/usuarios.component';
 import { ArticulosComponent } from './articulos/articulos.component';
 import { CategoriasComponent } from './categorias/categorias.component';
+import { VentasComponent } from './ventas/ventas.component';
 
 import { UsuarioComponent } from './usuarios/usuario.component';
 import { ArticuloComponent } from './articulos/articulo.component';
 import { CategoriaComponent } from './categorias/categoria.component';
+import { VentaComponent } from './ventas/venta.component';
 
 import { LoginGuardGuard } from '../services/service.index';
 import { ProfileComponent } from './profile/profile.component';
@@ -33,9 +35,11 @@ const pagesRoutes: Routes = [
           { path: 'usuarios', component: UsuariosComponent, data: {titulo: 'Mantemiento de Usuarios'} },
           { path: 'articulos', component: ArticulosComponent, data: { titulo: 'Mantemiento de Articulos' } },
           { path: 'categorias', component: CategoriasComponent, data: { titulo: 'Mantemiento de categorias' } },
+          { path: 'ventas', component: VentasComponent, data: { titulo: 'Mantemiento de ventas' } },
           { path: 'usuario/:id', component: UsuarioComponent, data: { titulo: 'Actualizar Usuario' } },
           { path: 'articulo/:id', component: ArticuloComponent, data: { titulo: 'Actualizar Articulo' } },
           { path: 'categoria/:id', component: CategoriaComponent, data: { titulo: 'Actualizar categorias' } },
+          { path: 'venta/:id', component: VentaComponent, data: { titulo: 'Actualizar ventas' } },
           { path: '', redirectTo: '/dashboard', pathMatch: 'full' }
         ]
     }
