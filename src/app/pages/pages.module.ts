@@ -16,6 +16,8 @@ import { CategoriaComponent } from './categorias/categoria.component';
 import { CategoriasComponent } from './categorias/categorias.component';
 import { VentaComponent } from './ventas/venta.component';
 import { VentasComponent } from './ventas/ventas.component';
+import { DetalleVentaComponent } from './detalleVentas/detalleVenta.component';
+import { DetalleVentasComponent } from './detalleVentas/detalleVentas.component';
 import { PipesModule } from '../pipes/pipes.module';
 import { RxjsComponent } from './rxjs/rxjs.component';
 import { CommonModule } from '@angular/common';
@@ -37,6 +39,8 @@ import { ProfileComponent } from './profile/profile.component';
         CategoriasComponent,
         VentaComponent,
         VentasComponent,
+        DetalleVentaComponent,
+        DetalleVentasComponent,
         RxjsComponent,
         ProfileComponent
     ],

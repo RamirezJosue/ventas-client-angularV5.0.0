@@ -10,6 +10,7 @@ import {
   ArticuloService,
   CategoriaService,
   VentaService,
+  DetalleVentaService,
   LoginGuardGuard,
   SubirArchivoService
  } from './service.index';
@@ -27,6 +28,7 @@ import {
     ArticuloService,
     CategoriaService,
     VentaService,
+    DetalleVentaService,
     LoginGuardGuard,
     SubirArchivoService
   ],
