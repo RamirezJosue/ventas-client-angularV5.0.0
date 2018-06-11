@@ -6,7 +6,7 @@
             </div>
             <div class="card-body">
 
-                <form ngNativeValidate [formGroup]="forma" (ngSubmit)="registrarUsuario()" action="#">
+                <form #f="ngForm" ngNativeValidate (ngSubmit)="guardarUsuario(f)">
 
                     <div class="form-body">
                         <h3 class="card-title">Informacion de Persona</h3>
@@ -15,103 +15,59 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="control-label">Nombre</label>
-                                    <input formControlName="nombre" type="text" name="nombre" class="form-control" placeholder="Nombre" required>
+                                    <input [(ngModel)]="usuario.nombre" type="text" name="nombre" class="form-control" placeholder="Nombre" required>
                                 </div>
                             </div>
                             <!--/span-->
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="control-label">Login</label>
-                                    <input formControlName="login" type="text" name="login" class="form-control" placeholder="Login" required>
+                                    <input [(ngModel)]="usuario.login" type="text" name="usuario.login" class="form-control" placeholder="Login" required>
                                 </div>
                             </div>
                             <!--/span-->
                         </div>
+
                         <!--/row-->
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="control-label">Contraseña</label>
-                                    <input formControlName="clave" type="password" name="clave" class="form-control" placeholder="Contraseña" required>
+                                    <input [(ngModel)]="usuario.clave" type="password" name="clave" class="form-control" placeholder="Contraseña" required>
                                 </div>
                             </div>
                             <!--/span-->
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="control-label">Confirmar Contraseña</label>
-                                    <input formControlName="clave2" type="password" name="clave2" class="form-control" placeholder="Confirmar Contraseña" required>
+                                    <input type="password" name="clave2" class="form-control" placeholder="Confirmar Contraseña" required>
                                 </div>
                             </div>
-                            <div class="form-group" *ngIf="forma.errors?.sonIguales && !forma.pristine">
+                            <div class="form-group">
                                 <p class="text-danger">
                                     Las contraseñas deben de ser iguales
                                 </p>
                             </div>
                             <!--/span-->
                         </div>
+
+
                         <!--/row-->
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="control-label">Tipo Documento</label>
-                                    <input formControlName="tipoDocumento" type="text" name="tipoDocumento" class="form-control" placeholder="Tipo Documento" required>
+                                    <input [(ngModel)]="usuario.tipoDocumento" type="text" name="tipoDocumento" class="form-control" placeholder="Tipo Documento" required>
                                 </div>
                             </div>
                             <!--/span-->
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="control-label">Dni</label>
-                                    <input formControlName="numDocumento" type="text" name="numDocumento" class="form-control" placeholder="Dni" required>
+                                    <input [(ngModel)]="usuario.numDocumento" type="text" name="numDocumento" class="form-control" placeholder="Dni" required>
                                 </div>
                             </div>
                             <!--/span-->
-                        </div>
-                        <!--/row-->
-                        <h3 class="box-title m-t-40">Address</h3>
-                        <hr>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label class="control-label">Direccion</label>
-                                    <input formControlName="direccion" type="text" name="direccion" class="form-control" placeholder="Direccion">
-                                </div>
-                            </div>
-                            <!--/span-->
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label class="control-label">Telefono</label>
-                                    <input formControlName="telefono" type="text" name="telefono" class="form-control" placeholder="Telefono">
-                                </div>
-                            </div>
-                            <!--/span-->
-                        </div>
-                        <!--/row-->
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label class="control-label">Email</label>
-                                    <input formControlName="email" type="text" name="email" class="form-control" placeholder="Email">
-                                </div>
-                            </div>
-                            <!--/span-->
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label>Rol</label>
-                                    <select class="form-control custom-select">
-                                        <option>ADMIN_ROLE</option>
-                                        <option>USER_ROLE</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <!--/span-->
-                        </div>
-                        <div class="row">
-                            <div class="col-md-12 ">
-                                <div class="checkbox checkbox-primary p-t-0">
-                                    <input formControlName="condiciones" name="condiciones" id="checkbox-signup" type="checkbox">
-                                    <label for="checkbox-signup"> Estoy de acuerdo con los <a href="#">términos</a></label>
-                                </div>
-                            </div>
                         </div>
                     </div>
                     <div class="form-actions">

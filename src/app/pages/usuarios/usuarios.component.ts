@@ -33,8 +33,11 @@ export class UsuariosComponent implements OnInit {
           .subscribe(usuarios => this.usuarios = usuarios);
   }
 
-  borrarUsuario( usuario: Usuario ){
-    
+  borrarUsuario( usuario: Usuario ) {
+
+    this._usuarioService.borrarUsuario( usuario._id )
+            .subscribe( () =>  this.cargarUsuarios() );
+
   }
 }
 

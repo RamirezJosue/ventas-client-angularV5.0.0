@@ -1,8 +1,8 @@
 import { Component, OnInit, group } from '@angular/core';
-import { Router } from '@angular/router';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { Router, ActivatedRoute } from '@angular/router';
+import { NgForm } from '@angular/forms';
 
-import * as swal from 'sweetalert';
+
 import { Usuario } from '../../models/usuario.model';
 
 
@@ -19,73 +19,55 @@ import {
 })
 export class UsuarioComponent implements OnInit {
 
-  forma: FormGroup;
+  usuario: Usuario = new Usuario('', '', '', '', '');
 
   constructor(
     public _usuarioService: UsuarioService,
-    public router: Router
-  ) { }
-
-  sonIguales( campo1: string , campo2: string  ) {
-
-    return ( group: FormGroup ) => {
-
-      let pass1 = group.controls[campo1].value;
-      let pass2 = group.controls[campo2].value;
-
-      if ( pass1 === pass2 ) {
-        return null;
+    public router: Router,
+    public activatedRoute: ActivatedRoute,
+  ) {
+    activatedRoute.params.subscribe( params => {
+      let id = params['id'];
+      if ( id !== 'nuevo'){
+        this.cargarUsuario(id);
       }
+    });
+   }
 
-      return {
-        sonIguales: true
-      };
 
-    };
-
-  }
 
   ngOnInit() {
 
-    this.forma = new FormGroup({
-      nombre: new FormControl( null, Validators.required),
-      login: new FormControl( null, Validators.required ),
-      clave: new FormControl( null, Validators.required),
-      clave2: new FormControl( null, Validators.required),
-      tipoDocumento: new FormControl( null, Validators.required),
-      numDocumento: new FormControl( null, Validators.required),
-      direccion: new FormControl( null, Validators.nullValidator  ),
-      telefono: new FormControl(null, Validators.nullValidator),
-      email: new FormControl(null,  Validators.nullValidator ),
-      condiciones: new FormControl( false)
-    }, {validators: this.sonIguales('clave', 'clave2') });
   }
 
-  registrarUsuario(){
+  cargarUsuario( id: string){
+    this._usuarioService.cargarUsuario( id )
+          .subscribe( usuario => {
+            console.log( usuario );
+            this.usuario = usuario;
+          })
+  }
 
-    if ( this.forma.invalid ) {
+  guardarUsuario( f: NgForm ) {
+
+    console.log( f.valid );
+    console.log( f.value );
+
+    if ( f.invalid ) {
       return;
     }
 
-    if ( !this.forma.value.condiciones ) {
-      swal('Importante', 'Debe de aceptar las condiciones', 'warning');
-      return;
-    }
-    let usuario = new Usuario(
-      this.forma.value.nombre,
-      this.forma.value.login,
-      this.forma.value.clave,
-      this.forma.value.tipoDocumento,
-      this.forma.value.numDocumento,
-      this.forma.value.direccion,
-      this.forma.value.telefono,
-      this.forma.value.email,
-      this.forma.value.role
-    );
+    this._usuarioService.guardarUsuario( this.usuario )
+            .subscribe( usuario => {
 
-    this._usuarioService.crearUsuario( usuario )
-              .subscribe(resp => this.router.navigate(['/usuarios']));
+              this.usuario._id = usuario._id;
+
+              this.router.navigate(['/usuarios']);
+
+            });
 
   }
+
+
 
 }

@@ -7,6 +7,9 @@ import { Router } from '@angular/router';
 import { SubirArchivoService } from '../subir-archivo/subir-archivo.service';
 
 
+import * as swal from 'sweetalert';
+
+
 
 @Injectable()
 export class UsuarioService {
@@ -87,6 +90,13 @@ export class UsuarioService {
 
   }
 
+  cargarUsuario( id: string ) {
+    let url = URL_SERVICIOS + '/usuario/' + id;
+
+    return this.http.get(url)
+                .map((resp:any) => resp.usuario);
+  }
+
   buscarUsuarios( termino: string ) {
     let url = URL_SERVICIOS + '/busqueda/coleccion/usuarios/' + termino;
     return this.http.get(url)
@@ -134,7 +144,49 @@ export class UsuarioService {
   }
 
   borrarUsuario( id: string ) {
-    let url = URL_SERVICIOS + '/usuario' + id;
+
+    let url = URL_SERVICIOS + '/usuario/' + id;
+    url += '?token=' + this.token;
+
+    return this.http.delete( url )
+              .map( resp => {
+                swal( 'Usuario Borrado', 'Usuario borrado correctamente', 'success' );
+                return resp;
+              });
+
   }
+
+
+  guardarUsuario( usuario: Usuario ) {
+
+    let url = URL_SERVICIOS + '/usuario';
+
+    if ( usuario._id ) {
+      // actualizando
+      url += '/' + usuario._id;
+      url += '?token=' + this.token;
+
+      return this.http.put( url, usuario )
+                .map( (resp: any) => {
+                  swal('Usuario Actualizado', usuario.nombre, 'success');
+                  return resp.usuario;
+
+                });
+
+    } else {
+      // creando
+      url += '?token=' + this.token;
+      return this.http.post( url, usuario )
+              .map( (resp: any) => {
+                swal('Médico Creado', usuario.nombre, 'success');
+                return resp.usuario;
+              });
+    }
+
+
+
+
+  }
+
 
 }
